@@ -1,9 +1,8 @@
 import express, { Request, Response } from "express";
+import authRouter from "./routes/loginRoutes";
 
 const app = express();
 
-app.get("/api", (req: Request, res: Response) => {
-  res.send("Hi there");
-});
+app.use("/api", authRouter);
 
 export default app;
