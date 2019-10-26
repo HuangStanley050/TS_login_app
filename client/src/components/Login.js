@@ -27,7 +27,9 @@ const useForm = () => {
 
 const Login = props => {
   const { values, handleChange } = useForm();
-
+  // React.useEffect(() => {
+  //   props.clearError();
+  // }, [props]);
   const handleSubmit = e => {
     e.preventDefault();
     axios
@@ -35,14 +37,21 @@ const Login = props => {
       .then(res => {
         // console.log(res.data.data);
         console.log("login success");
+        props.clearError();
         props.login();
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        props.loginError();
+      });
   };
 
   //console.log("From login authstatus: ", props.auth);
   if (props.auth) {
     return <Redirect to="/protected" />;
+  }
+  if (props.error) {
+    return <Redirect to="/error" />;
   }
   return (
     <div style={{ margin: "2rem auto", width: "50%" }}>
