@@ -28,6 +28,10 @@ const Login = Props => {
   const login = () => {
     console.log("you are loggging");
     console.log(values);
+    axios
+      .post("/api/login", values)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   };
 
   const { values, handleChange, handleSubmit } = useForm(login);
