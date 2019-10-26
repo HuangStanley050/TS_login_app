@@ -11,13 +11,13 @@ var path_1 = __importDefault(require("path"));
 var app = express_1.default();
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
-app.use(express_1.default.static(path_1.default.join(__dirname, "client/build")));
+app.use(express_1.default.static(path_1.default.join(__dirname, "../client/build")));
 app.use(cookie_session_1.default({
     name: "app",
     keys: ["super"]
 }));
 app.use("/api", loginRoutes_1.default);
 app.get("*", function (req, res) {
-    res.sendFile(path_1.default.join(__dirname + "/client/build/index.html"));
+    res.sendFile(path_1.default.join(__dirname + "../client/build/index.html"));
 });
 exports.default = app;
