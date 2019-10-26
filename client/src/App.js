@@ -12,6 +12,9 @@ function App() {
   const setLogin = () => {
     setAuth(true);
   };
+  const setLogout = () => {
+    setAuth(false);
+  };
   //console.log("Auth status from <App>: ", isAuth);
   return (
     <Switch>
@@ -25,6 +28,7 @@ function App() {
       <PrivateRoute
         path="/protected"
         auth={isAuth}
+        logout={setLogout}
         component={ProtectedComponent}
       />
       {/*<Route path="/protected" component={ProtectedComponent} />*/}
