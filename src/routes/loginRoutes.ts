@@ -15,7 +15,7 @@ router
 
     if (Email && Password && Email === email && Password === password) {
       req.session = { loggedIn: true };
-      res.json({ msg: "login route", data: req.session });
+      res.json({ msg: "login success" });
     } else {
       res.status(401).json({ msg: "login failed" });
     }

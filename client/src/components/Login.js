@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
-const useForm = callback => {
+const useForm = () => {
   const [values, setValues] = useState({});
 
-  const handleSubmit = event => {
-    if (event) event.preventDefault();
-    callback();
-  };
+  // const handleSubmit = event => {
+  //   if (event) event.preventDefault();
+  //   callback();
+  // };
 
   const handleChange = event => {
     event.persist();
@@ -20,35 +20,30 @@ const useForm = callback => {
 
   return {
     handleChange,
-    handleSubmit,
+    //handleSubmit,
     values
   };
 };
 
-function check_cookie_name(name) {
-  var match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
-  if (match) {
-    console.log(match[2]);
-  } else {
-    console.log("--something went wrong---");
-  }
-}
+const Login = props => {
+  const { values, handleChange } = useForm();
 
-const Login = Props => {
-  const login = () => {
+  const handleSubmit = e => {
+    e.preventDefault();
     axios
       .post("/api/login", values)
       .then(res => {
         // console.log(res.data.data);
         console.log("login success");
+        props.login();
       })
       .catch(err => console.log(err));
   };
 
-  const { values, handleChange, handleSubmit } = useForm(login);
-
-  check_cookie_name("app");
-
+  //console.log("From login authstatus: ", props.auth);
+  if (props.auth) {
+    return <Redirect to="/protected" />;
+  }
   return (
     <div style={{ margin: "2rem auto", width: "50%" }}>
       <form
