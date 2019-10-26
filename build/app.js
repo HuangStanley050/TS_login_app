@@ -5,9 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
+var cookie_session_1 = __importDefault(require("cookie-session"));
 var loginRoutes_1 = __importDefault(require("./routes/loginRoutes"));
 var app = express_1.default();
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
+app.use(cookie_session_1.default({
+    name: "app",
+    keys: ["super"]
+}));
 app.use("/api", loginRoutes_1.default);
 exports.default = app;

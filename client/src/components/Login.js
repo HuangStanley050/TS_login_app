@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 const useForm = callback => {
   const [values, setValues] = useState({});
@@ -24,15 +25,29 @@ const useForm = callback => {
   };
 };
 
+function check_cookie_name(name) {
+  var match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+  if (match) {
+    console.log(match[2]);
+  } else {
+    console.log("--something went wrong---");
+  }
+}
+
 const Login = Props => {
   const login = () => {
     axios
       .post("/api/login", values)
-      .then(res => console.log(res))
+      .then(res => {
+        // console.log(res.data.data);
+        console.log("login success");
+      })
       .catch(err => console.log(err));
   };
 
   const { values, handleChange, handleSubmit } = useForm(login);
+
+  check_cookie_name("app");
 
   return (
     <div style={{ margin: "2rem auto", width: "50%" }}>
